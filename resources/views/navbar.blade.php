@@ -26,5 +26,6 @@
                      <span class="material-icons text-base">logout</span>
                     Keluar
                 </button>
+                </form>
     </div>
 </nav>
