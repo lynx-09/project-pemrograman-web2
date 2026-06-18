@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductController extends Controller
 {
@@ -89,5 +90,15 @@ class ProductController extends Controller
         $product = \App\Models\product::findOrFail($id);
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Barang berhasil dihapus');
+    }
+
+    //fungsi download pdf
+    public function downloadPDF(){
+        //ambil semua data products
+        $products = \App\Models\product::all();
+        //muat halaman view khusus (html+css) dan gunakan data product
+        $pdf = Pdf::loadView('products/product_pdf', compact('products'));
+        //download pdf
+        return $pdf->download('Laporan-Data-Product-MyTokoElektronik.pdf');
     }
 }
